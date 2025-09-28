@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Backend dengan hot reload
+  backend:
+    volumes:
+      - ./backend_feedback:/app
+    environment:
+      - PYTHONPATH=/app
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  # Frontend dengan hot reload
+  frontend:
+    volumes:
+      - ./delami-style-whisperer:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: ["npm", "run", "dev"]
